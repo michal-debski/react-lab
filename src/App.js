@@ -1,7 +1,7 @@
 import './App.css';
 import {useState} from "react";
 import "milligram"
-
+import LoginForm from "./LoginForm";
 
 function App() {
     const [email, setEmail] = useState(null);
@@ -15,11 +15,7 @@ function App() {
         <div className="App">
             <h1>Witaj w systemie do zapisów na zajęcia</h1>
             {!authenticatedUsername && (
-                <div>
-                    <h2>Zaloguj się e-mailem</h2>
-                    <input type="text" value={email} onChange={handleChange}/>
-                    <button type="button" onClick={() => setAuthenticatedUsername(email)}>Wchodzę</button>
-                </div>
+                <LoginForm onLogin={login}/>
             )}
             {authenticatedUsername && (
                 <div>
