@@ -1,29 +1,35 @@
 import './App.css';
 import {useState} from "react";
 
+
 function App() {
-    const [email, setEmail] = useState('fracz@agh.edu.pl');
-    let message = "";
+    const [email, setEmail] = useState(null);
+    const [authenticatedUsername, setAuthenticatedUsername] = useState(null);
+
     function handleChange(event) {
         setEmail(event.target.value);
     }
 
-    if (email.length <14 && email.length >5){
-        message = "Twój adres e-mail jest w sam raz";
-    } else if (email.length >= 14) {
-        message = "Twój adres e-mail jest za długi";
-    } else {
-        message = "Ale masz krótki adres!";
-    }
-
-  return (
-    <div className="App">
-     <h1>System do zapisywania na zajęcia</h1>
-        <h2>{message}</h2>
-        <h2>Twój e-mail to {email}</h2>
-        <input type="text"  value={email} onChange={handleChange}/>
-    </div>
-  );
+    return (
+        <div className="App">
+            <h1>Witaj w systemie do zapisów na zajęcia</h1>
+            {!authenticatedUsername && (
+                <div>
+                    <h2>Zaloguj się e-mailem</h2>
+                    <input type="text" value={email} onChange={handleChange}/>
+                    <button type="button" onClick={() => setAuthenticatedUsername(email)}>Wchodzę</button>
+                </div>
+            )}
+            {authenticatedUsername && (
+                <div>
+                    <h4>Witaj {authenticatedUsername}!</h4>
+                    <div>
+                        <a onClick={() => setAuthenticatedUsername(null)}>Wyloguj</a>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default App;
